@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="theme-color"
+        content="#06131f">
+
+    <title>
+        SMART Wildlife Intelligence
+    </title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+
+    <link
+        rel="stylesheet"
+        href="styles.css">
+</head>
+
+<body>
+
+<!-- =========================================================
+     LOGIN
+========================================================= -->
+
+<div
+    id="loginScreen"
+    class="login-screen">
+
+    <div class="login-background-grid"></div>
+
+    <div class="login-orbit orbit-one"></div>
+    <div class="login-orbit orbit-two"></div>
+
+    <div class="login-panel">
+
+        <div class="brand-lockup">
+
+            <div class="brand-mark">
+                WI
+            </div>
+
+            <div>
+                <div class="brand-name">
+                    WILDLIFE
+                    <span>INTELLIGENCE</span>
+                </div>
+
+                <div class="brand-subtitle">
+                    SMART CONSERVATION PLATFORM
+                </div>
+            </div>
+
+        </div>
+
+        <div class="login-content">
+
+            <span class="eyebrow">
+                SECURE ACCESS
+            </span>
+
+            <h1>
+                Conservation
+                <strong>Intelligence</strong>
+            </h1>
+
+            <p>
+                Monitor wildlife, field observations,
+                incidents and conservation intelligence
+                from one operational workspace.
+            </p>
+
+            <form id="loginForm">
+
+                <div class="form-field">
+
+                    <label>
+                        Email
+                    </label>
+
+                    <input
+                        id="loginEmail"
+                        type="email"
+                        value="admin@wildlife.local"
+                        required>
+
+                </div>
+
+                <div class="form-field">
+
+                    <label>
+                        Password
+                    </label>
+
+                    <input
+                        id="loginPassword"
+                        type="password"
+                        value="Admin@123"
+                        required>
+
+                </div>
+
+                <button
+                    class="login-button"
+                    type="submit">
+
+                    <span>
+                        Enter Workspace
+                    </span>
+
+                    <span>
+                        →
+                    </span>
+
+                </button>
+
+            </form>
+
+            <div class="demo-credentials">
+
+                <span>
+                    DEMO ACCESS
+                </span>
+
+                <button
+                    type="button"
+                    onclick="useAdminDemo()">
+
+                    Administrator
+
+                </button>
+
+                <button
+                    type="button"
+                    onclick="useViewerDemo()">
+
+                    Viewer
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="login-footer">
+
+            <span>
+                SMART WI
+            </span>
+
+            <span>
+                FRONTEND v1.0.0
+            </span>
+
+            <span>
+                KENYA DEMO
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     APPLICATION
+========================================================= -->
+
+<div
+    id="app"
+    class="app hidden">
+
+
+    <!-- SIDEBAR -->
+
+    <aside
+        id="sidebar"
+        class="sidebar">
+
+        <div class="sidebar-brand">
+
+            <div class="brand-mark small">
+                WI
+            </div>
+
+            <div>
+
+                <strong>
+                    WILDLIFE
+                </strong>
+
+                <span>
+                    INTELLIGENCE
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="organization-card">
+
+            <div class="organization-status"></div>
+
+            <div>
+
+                <small>
+                    ORGANIZATION
+                </small>
+
+                <strong>
+                    Kenya Wildlife Demo
+                </strong>
+
+            </div>
+
+            <span>
+                ●
+            </span>
+
+        </div>
+
+
+        <nav class="navigation">
+
+            <div class="nav-label">
+                COMMAND CENTRE
+            </div>
+
+            <button
+                class="nav-item active"
+                data-view="dashboard">
+
+                <span class="nav-icon">⌂</span>
+
+                <span>
+                    Dashboard
+                </span>
+
+            </button>
+
+
+            <div class="nav-label">
+                FIELD INTELLIGENCE
+            </div>
+
+            <button
+                class="nav-item"
+                data-view="map">
+
+                <span class="nav-icon">◎</span>
+
+                <span>
+                    Wildlife Map
+                </span>
+
+            </button>
+
+            <button
+                class="nav-item"
+                data-view="observations">
+
+                <span class="nav-icon">◉</span>
+
+                <span>
+                    Observations
+                </span>
+
+            </button>
+
+
+            <div class="nav-label">
+                WILDLIFE
+            </div>
+
+            <button
+                class="nav-item"
+                data-view="animals">
+
+                <span class="nav-icon">◇</span>
+
+                <span>
+                    Individual Registry
+                </span>
+
+            </button>
+
+            <button
+                class="nav-item"
+                data-view="species">
+
+                <span class="nav-icon">✦</span>
+
+                <span>
+                    Species
+                </span>
+
+            </button>
+
+
+            <div class="nav-label">
+                RISK & INCIDENTS
+            </div>
+
+            <button
+                class="nav-item"
+                data-view="incidents">
+
+                <span class="nav-icon">!</span>
+
+                <span>
+                    Incidents
+                </span>
+
+            </button>
+
+
+            <div class="nav-label">
+                INTELLIGENCE
+            </div>
+
+            <button
+                class="nav-item"
+                data-view="analytics">
+
+                <span class="nav-icon">◫</span>
+
+                <span>
+                    Analytics
+                </span>
+
+            </button>
+
+            <button
+                class="nav-item"
+                data-view="reports">
+
+                <span class="nav-icon">▤</span>
+
+                <span>
+                    Reports
+                </span>
+
+            </button>
+
+
+            <div class="nav-label">
+                ADMINISTRATION
+            </div>
+
+            <button
+                class="nav-item"
+                data-view="settings">
+
+                <span class="nav-icon">⚙</span>
+
+                <span>
+                    Settings
+                </span>
+
+            </button>
+
+        </nav>
+
+
+        <div class="sidebar-bottom">
+
+            <div class="system-status">
+
+                <span class="status-dot"></span>
+
+                <div>
+
+                    <strong>
+                        System Online
+                    </strong>
+
+                    <small>
+                        Local workspace
+                    </small>
+
+                </div>
+
+            </div>
+
+            <div class="version">
+                SMART WI · v1.0.0
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+        <!-- TOPBAR -->
+
+        <header class="topbar">
+
+            <button
+                id="sidebarToggle"
+                class="mobile-menu">
+
+                ☰
+
+            </button>
+
+
+            <div class="global-search">
+
+                <span>
+                    ⌕
+                </span>
+
+                <input
+                    id="globalSearch"
+                    type="text"
+                    placeholder="Search wildlife intelligence...">
+
+            </div>
+
+
+            <div class="topbar-right">
+
+                <div class="live-status">
+
+                    <span></span>
+
+                    LIVE
+
+                </div>
+
+                <button
+                    class="topbar-icon"
+                    onclick="showToast('No new critical notifications.', 'info')">
+
+                    ♢
+
+                    <i></i>
+
+                </button>
+
+
+                <div class="user-profile">
+
+                    <div
+                        id="userAvatar"
+                        class="avatar">
+                        A
+                    </div>
+
+                    <div>
+
+                        <strong id="userName">
+                            Administrator
+                        </strong>
+
+                        <small id="userRole">
+                            Administrator
+                        </small>
+
+                    </div>
+
+                    <button
+                        onclick="logout()"
+                        class="logout-button">
+
+                        ↪
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- PAGE -->
+
+        <div class="page">
+
+
+<!-- =========================================================
+     DASHBOARD
+========================================================= -->
+
+<section
+    id="dashboardView"
+    class="view active">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                CONSERVATION INTELLIGENCE
+            </span>
+
+            <h1>
+                Command Centre
+            </h1>
+
+            <p>
+                Operational overview of wildlife monitoring,
+                field observations and conservation risks.
+            </p>
+
+        </div>
+
+        <div class="heading-actions">
+
+            <button
+                class="btn btn-secondary"
+                onclick="setView('map')">
+
+                ◎ Open Live Map
+
+            </button>
+
+            <button
+                class="btn btn-primary"
+                onclick="openObservationModal()">
+
+                + New Observation
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-command">
+
+        <div class="hero-grid"></div>
+
+        <div class="hero-content">
+
+            <div>
+
+                <span class="hero-kicker">
+                    SMART WILDLIFE INTELLIGENCE
+                </span>
+
+                <h2>
+                    Field data.
+                    <span>
+                        Spatial intelligence.
+                    </span>
+                    Conservation action.
+                </h2>
+
+                <p>
+                    A unified operational view of wildlife
+                    populations, individuals, observations,
+                    threats and field activity.
+                </p>
+
+            </div>
+
+
+            <div class="intelligence-pipeline">
+
+                <div class="pipeline-step">
+                    <span>01</span>
+                    <strong>FIELD</strong>
+                    <small>GPS observations</small>
+                </div>
+
+                <div class="pipeline-line"></div>
+
+                <div class="pipeline-step">
+                    <span>02</span>
+                    <strong>DATABASE</strong>
+                    <small>Wildlife records</small>
+                </div>
+
+                <div class="pipeline-line"></div>
+
+                <div class="pipeline-step">
+                    <span>03</span>
+                    <strong>INTELLIGENCE</strong>
+                    <small>Spatial analysis</small>
+                </div>
+
+                <div class="pipeline-line"></div>
+
+                <div class="pipeline-step">
+                    <span>04</span>
+                    <strong>ACTION</strong>
+                    <small>Decisions</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- KPI -->
+
+    <div
+        id="dashboardKpis"
+        class="kpi-grid">
+    </div>
+
+
+    <!-- SPECIES -->
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                WILDLIFE REGISTRY
+            </span>
+
+            <h2>
+                Species Intelligence
+            </h2>
+
+        </div>
+
+        <button
+            class="text-button"
+            onclick="setView('species')">
+
+            Manage species →
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="dashboardSpecies"
+        class="dashboard-species-grid">
+    </div>
+
+
+    <!-- MAP + ALERTS -->
+
+    <div class="dashboard-two-column">
+
+        <div class="panel map-panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        SPATIAL INTELLIGENCE
+                    </span>
+
+                    <h3>
+                        Wildlife Activity
+                    </h3>
+
+                </div>
+
+                <button
+                    class="btn btn-secondary btn-sm"
+                    onclick="setView('map')">
+
+                    Full Map
+
+                </button>
+
+            </div>
+
+            <div
+                id="dashboardMap"
+                class="dashboard-map">
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        RISK MONITORING
+                    </span>
+
+                    <h3>
+                        Critical Alerts
+                    </h3>
+
+                </div>
+
+                <span class="count-badge"
+                      id="criticalCount">
+                    0
+                </span>
+
+            </div>
+
+            <div
+                id="dashboardIncidents"
+                class="alert-list">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LOWER -->
+
+    <div class="dashboard-two-column">
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        FIELD ACTIVITY
+                    </span>
+
+                    <h3>
+                        Observation Trend
+                    </h3>
+
+                </div>
+
+            </div>
+
+            <div class="chart-container">
+                <canvas id="dashboardTrendChart"></canvas>
+            </div>
+
+        </div>
+
+
+        <div class="panel decision-panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        DECISION INTELLIGENCE
+                    </span>
+
+                    <h3>
+                        Field Insights
+                    </h3>
+
+                </div>
+
+            </div>
+
+            <div
+                id="decisionInsights"
+                class="insight-list">
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     MAP
+========================================================= -->
+
+<section
+    id="mapView"
+    class="view">
+
+    <div class="page-heading compact">
+
+        <div>
+
+            <span class="eyebrow">
+                FIELD INTELLIGENCE
+            </span>
+
+            <h1>
+                Wildlife Command Map
+            </h1>
+
+            <p>
+                Spatial view of observations,
+                individuals and incidents.
+            </p>
+
+        </div>
+
+        <div class="heading-actions">
+
+            <button
+                class="btn btn-secondary"
+                onclick="fitKenya()">
+
+                Kenya Extent
+
+            </button>
+
+            <button
+                class="btn btn-primary"
+                onclick="openObservationModal()">
+
+                + Observation
+
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <div class="map-workspace">
+
+        <div class="map-sidebar">
+
+            <div class="map-filter-header">
+
+                <span class="eyebrow">
+                    MAP FILTERS
+                </span>
+
+                <button
+                    class="text-button"
+                    onclick="clearMapFilters()">
+
+                    Reset
+
+                </button>
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label>
+                    Species
+                </label>
+
+                <select
+                    id="mapSpeciesFilter"
+                    onchange="renderMapMarkers()">
+
+                    <option value="">
+                        All species
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-field">
+
+                <label>
+                    Data Layer
+                </label>
+
+                <select
+                    id="mapLayerFilter"
+                    onchange="renderMapMarkers()">
+
+                    <option value="all">
+                        Observations + Incidents
+                    </option>
+
+                    <option value="observations">
+                        Observations
+                    </option>
+
+                    <option value="incidents">
+                        Incidents
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="map-legend">
+
+                <span class="eyebrow">
+                    LEGEND
+                </span>
+
+                <div>
+                    <span class="legend-dot observation"></span>
+                    Wildlife observation
+                </div>
+
+                <div>
+                    <span class="legend-dot incident"></span>
+                    Incident / threat
+                </div>
+
+            </div>
+
+
+            <div class="map-stat-card">
+
+                <span>
+                    MAPPED RECORDS
+                </span>
+
+                <strong id="mappedRecords">
+                    0
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="mainMap"
+            class="main-map">
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     OBSERVATIONS
+========================================================= -->
+
+<section
+    id="observationsView"
+    class="view">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                FIELD INTELLIGENCE
+            </span>
+
+            <h1>
+                Observations
+            </h1>
+
+            <p>
+                Record and review wildlife field observations.
+            </p>
+
+        </div>
+
+        <button
+            class="btn btn-primary edit-only"
+            onclick="openObservationModal()">
+
+            + New Observation
+
+        </button>
+
+    </div>
+
+
+    <div class="toolbar panel">
+
+        <div class="table-search">
+
+            <span>⌕</span>
+
+            <input
+                id="observationSearch"
+                placeholder="Search observations..."
+                oninput="renderObservationsTable()">
+
+        </div>
+
+        <select
+            id="observationSpeciesFilter"
+            onchange="renderObservationsTable()">
+
+            <option value="">
+                All species
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="panel table-panel">
+
+        <div class="table-scroll">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Date</th>
+                        <th>Species</th>
+                        <th>Individual</th>
+                        <th>Count</th>
+                        <th>Behaviour</th>
+                        <th>Location</th>
+                        <th>Observer</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="observationsTableBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ANIMALS
+========================================================= -->
+
+<section
+    id="animalsView"
+    class="view">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                WILDLIFE REGISTRY
+            </span>
+
+            <h1>
+                Individual Registry
+            </h1>
+
+            <p>
+                Manage individually identified wildlife.
+            </p>
+
+        </div>
+
+        <button
+            class="btn btn-primary edit-only"
+            onclick="openAnimalModal()">
+
+            + Register Animal
+
+        </button>
+
+    </div>
+
+
+    <div class="toolbar panel">
+
+        <div class="table-search">
+
+            <span>⌕</span>
+
+            <input
+                id="animalSearch"
+                placeholder="Search animals..."
+                oninput="renderAnimalsTable()">
+
+        </div>
+
+        <select
+            id="animalSpeciesFilter"
+            onchange="renderAnimalsTable()">
+
+            <option value="">
+                All species
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div class="panel table-panel">
+
+        <div class="table-scroll">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Animal ID</th>
+                        <th>Species</th>
+                        <th>Sex</th>
+                        <th>Age Class</th>
+                        <th>Status</th>
+                        <th>Location</th>
+                        <th>First Recorded</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="animalsTableBody"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SPECIES
+========================================================= -->
+
+<section
+    id="speciesView"
+    class="view">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                MASTER REGISTRY
+            </span>
+
+            <h1>
+                Species Intelligence
+            </h1>
+
+            <p>
+                Configure species monitored by this
+                conservation programme.
+            </p>
+
+        </div>
+
+        <button
+            class="btn btn-primary edit-only"
+            onclick="openSpeciesModal()">
+
+            + Add Species
+
+        </button>
+
+    </div>
+
+
+    <div class="species-toolbar panel">
+
+        <div class="table-search">
+
+            <span>⌕</span>
+
+            <input
+                id="speciesSearch"
+                placeholder="Search species..."
+                oninput="renderSpeciesManagement()">
+
+        </div>
+
+        <div class="registry-summary">
+
+            <span>
+                ACTIVE SPECIES
+            </span>
+
+            <strong id="activeSpeciesCount">
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <div
+        id="speciesGrid"
+        class="species-management-grid">
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     INCIDENTS
+========================================================= -->
+
+<section
+    id="incidentsView"
+    class="view">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                RISK & INCIDENTS
+            </span>
+
+            <h1>
+                Incident Register
+            </h1>
+
+            <p>
+                Monitor threats, conflicts and conservation risks.
+            </p>
+
+        </div>
+
+        <button
+            class="btn btn-primary edit-only"
+            onclick="openIncidentModal()">
+
+            + Report Incident
+
+        </button>
+
+    </div>
+
+
+    <div class="incident-summary">
+
+        <div class="summary-card">
+            <span>OPEN</span>
+            <strong id="openIncidents">0</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>CRITICAL</span>
+            <strong id="criticalIncidents">0</strong>
+        </div>
+
+        <div class="summary-card">
+            <span>INVESTIGATING</span>
+            <strong id="investigatingIncidents">0</strong>
+        </div>
+
+    </div>
+
+
+    <div
+        id="incidentCards"
+        class="incident-grid">
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ANALYTICS
+========================================================= -->
+
+<section
+    id="analyticsView"
+    class="view">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                CONSERVATION INTELLIGENCE
+            </span>
+
+            <h1>
+                Analytics
+            </h1>
+
+            <p>
+                Understand wildlife monitoring patterns and risks.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="analytics-grid">
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        SPECIES
+                    </span>
+
+                    <h3>
+                        Observations by Species
+                    </h3>
+
+                </div>
+
+            </div>
+
+            <div class="chart-container">
+                <canvas id="speciesChart"></canvas>
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        RISK
+                    </span>
+
+                    <h3>
+                        Incidents by Type
+                    </h3>
+
+                </div>
+
+            </div>
+
+            <div class="chart-container">
+                <canvas id="incidentChart"></canvas>
+            </div>
+
+        </div>
+
+
+        <div class="panel analytics-wide">
+
+            <div class="panel-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        ACTIVITY
+                    </span>
+
+                    <h3>
+                        Observation Timeline
+                    </h3>
+
+                </div>
+
+            </div>
+
+            <div class="chart-container large">
+                <canvas id="timelineChart"></canvas>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     REPORTS
+========================================================= -->
+
+<section
+    id="reportsView"
+    class="view">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                INTELLIGENCE OUTPUT
+            </span>
+
+            <h1>
+                Reports & Data
+            </h1>
+
+            <p>
+                Export operational records for analysis and reporting.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="report-grid">
+
+        <div class="report-card">
+
+            <div class="report-icon">
+                ◉
+            </div>
+
+            <h3>
+                Observations
+            </h3>
+
+            <p>
+                Export all wildlife observation records.
+            </p>
+
+            <button
+                class="btn btn-secondary"
+                onclick="exportCSV('observations')">
+
+                Export CSV
+
+            </button>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <div class="report-icon">
+                ◇
+            </div>
+
+            <h3>
+                Animals
+            </h3>
+
+            <p>
+                Export the individual wildlife registry.
+            </p>
+
+            <button
+                class="btn btn-secondary"
+                onclick="exportCSV('animals')">
+
+                Export CSV
+
+            </button>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <div class="report-icon">
+                !
+            </div>
+
+            <h3>
+                Incidents
+            </h3>
+
+            <p>
+                Export conservation threats and incidents.
+            </p>
+
+            <button
+                class="btn btn-secondary"
+                onclick="exportCSV('incidents')">
+
+                Export CSV
+
+            </button>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <div class="report-icon">
+                ✦
+            </div>
+
+            <h3>
+                Species Registry
+            </h3>
+
+            <p>
+                Export species and taxonomy information.
+            </p>
+
+            <button
+                class="btn btn-secondary"
+                onclick="exportCSV('species')">
+
+                Export CSV
+
+            </button>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <div class="report-icon">
+                ↓
+            </div>
+
+            <h3>
+                Complete Backup
+            </h3>
+
+            <p>
+                Download the complete local workspace.
+            </p>
+
+            <button
+                class="btn btn-primary"
+                onclick="downloadBackup()">
+
+                Download JSON
+
+            </button>
+
+        </div>
+
+
+        <div class="report-card">
+
+            <div class="report-icon">
+                ▣
+            </div>
+
+            <h3>
+                Print Report
+            </h3>
+
+            <p>
+                Generate a browser-ready conservation report.
+            </p>
+
+            <button
+                class="btn btn-secondary"
+                onclick="printReport()">
+
+                Print / PDF
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     SETTINGS
+========================================================= -->
+
+<section
+    id="settingsView"
+    class="view">
+
+    <div class="page-heading">
+
+        <div>
+
+            <span class="eyebrow">
+                ADMINISTRATION
+            </span>
+
+            <h1>
+                Settings
+            </h1>
+
+            <p>
+                Configure the local SMART wildlife workspace.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="settings-grid">
+
+        <div class="panel settings-card">
+
+            <span class="eyebrow">
+                WORKSPACE
+            </span>
+
+            <h3>
+                Kenya Wildlife Demo
+            </h3>
+
+            <p>
+                Frontend demonstration environment.
+                Data is stored locally in this browser.
+            </p>
+
+            <div class="setting-row">
+
+                <span>
+                    Storage
+                </span>
+
+                <strong>
+                    LocalStorage
+                </strong>
+
+            </div>
+
+            <div class="setting-row">
+
+                <span>
+                    Backend
+                </span>
+
+                <strong>
+                    Not connected
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel settings-card">
+
+            <span class="eyebrow">
+                DEMO DATA
+            </span>
+
+            <h3>
+                Reset Workspace
+            </h3>
+
+            <p>
+                Remove locally saved changes and restore
+                the original demonstration records.
+            </p>
+
+            <button
+                class="btn btn-danger edit-only"
+                onclick="resetDemo()">
+
+                Reset Demo Data
+
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+        </div>
+
+    </main>
+
+</div>
+
+
+<!-- MODALS -->
+
+<div id="modalRoot"></div>
+
+<!-- TOAST -->
+
+<div id="toastRoot"></div>
+
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+<script
+    src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js">
+</script>
+
+<script src="data.js"></script>
+
+<script src="app.js"></script>
+
+</body>
+</html>
